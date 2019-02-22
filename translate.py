@@ -14,6 +14,13 @@ def translate_sequence(rna_sequence, genetic_code):
     an empty string is returned.
     """
     pass
+    #need to set up a loop moving through the sequences three codons at a time
+    #set up as a while loop so can set up an exit condition
+        #compares the three codons to the dict
+        #if  fewer than three bases, return empty string
+        #if a stop codon
+            #set the exit condition to leave the loop
+        #need to set up a loop to handle fewer than 
 
 def get_all_translations(rna_sequence, genetic_code):
     """Get a list of all amino acid sequences encoded by an RNA sequence.
