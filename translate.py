@@ -13,7 +13,10 @@ def translate_sequence(rna_sequence, genetic_code):
     If `rna_sequence` is less than 3 bases long, or starts with a stop codon,
     an empty string is returned.
     """
-    pass
+    if len(rna_sequence) < 3:
+        return('')
+    else:
+        pass
     #need to set up a loop moving through the sequences three codons at a time
     #set up as a while loop so can set up an exit condition
         #compares the three codons to the dict
@@ -46,9 +49,13 @@ def get_reverse(sequence):
 
     If `sequence` is empty, an empty string is returned.
     """
-    #reverse the string by slicing
-    seq_reverse= sequence[::-1]
-    return(seq_reverse)
+    #if an empty string, will evaluate to false and move to else statement
+    if sequence:
+        #reverse the string by slicing
+        seq_reverse= sequence[::-1]
+        return(seq_reverse)
+    else:
+        return('')
 
 def get_complement(sequence):
     """Get the complement of `sequence`.
@@ -57,7 +64,13 @@ def get_complement(sequence):
 
     If `sequence` is empty, an empty string is returned.
     """
-    pass
+    #create a reference dictionary of all the complements
+    comp={A:U, U:A, G:C, C:G}
+    if sequence:
+        #need to create a dict of all the complements, then
+        pass
+    else:
+        return('')
 
 def reverse_and_complement(sequence):
     """Get the reversed and complemented form of `sequence`.
@@ -67,7 +80,11 @@ def reverse_and_complement(sequence):
 
     If `sequence` is empty, an empty string is returned.
     """
-    pass
+    #just run it through get_complement and get_reverse
+    comp=get_complement(sequence)
+    revcomp=get_reverse(comp)
+    return(revcomp)
+
 
 def get_longest_peptide(rna_sequence, genetic_code):
     """Get the longest peptide encoded by an RNA sequence.
