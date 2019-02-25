@@ -46,7 +46,9 @@ def get_reverse(sequence):
 
     If `sequence` is empty, an empty string is returned.
     """
-    pass
+    #reverse the string by slicing
+    seq_reverse= sequence[::-1]
+    return(seq_reverse)
 
 def get_complement(sequence):
     """Get the complement of `sequence`.
