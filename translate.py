@@ -16,6 +16,7 @@ def translate_sequence(rna_sequence, genetic_code):
     if len(rna_sequence) < 3:
         return('')
     else:
+        rna_sequence=rna_sequence.upper()
         pass
     #need to set up a loop moving through the sequences three codons at a time
     #set up as a while loop so can set up an exit condition
@@ -49,6 +50,8 @@ def get_reverse(sequence):
 
     If `sequence` is empty, an empty string is returned.
     """
+    #force upppercase
+    sequence=sequence.upper()
     #if an empty string, will evaluate to false and move to else statement
     if sequence:
         #reverse the string by slicing
@@ -64,11 +67,16 @@ def get_complement(sequence):
 
     If `sequence` is empty, an empty string is returned.
     """
-    #create a reference dictionary of all the complements
-    comp={'A':'U', 'U':'A', 'G':'C', 'C':'G'}
+    #force uppercase
+    sequence=sequence.upper()
     if sequence:
         #use translate method to change each base to its complement
-        complement=sequence.translate(comp)
+        compa=sequence.replace('A', 'X')
+        compu=compa.replace('U', 'A')
+        comp_both=compu.replace('X', 'U')
+        compg=comp_both.replace('G', 'Z')
+        compc=compg.replace('C', 'G')
+        complement=compc.replace('Z', 'C')
         return(complement)
     else:
         return('')
