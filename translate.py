@@ -65,10 +65,11 @@ def get_complement(sequence):
     If `sequence` is empty, an empty string is returned.
     """
     #create a reference dictionary of all the complements
-    comp={A:U, U:A, G:C, C:G}
+    comp={'A':'U', 'U':'A', 'G':'C', 'C':'G'}
     if sequence:
-        #need to create a dict of all the complements, then
-        pass
+        #use translate method to change each base to its complement
+        complement=sequence.translate(comp)
+        return(complement)
     else:
         return('')
 
