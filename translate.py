@@ -16,8 +16,13 @@ def translate_sequence(rna_sequence, genetic_code):
     if len(rna_sequence) < 3:
         return('')
     else:
-        rna_sequence=rna_sequence.upper()
-        pass
+        amino = ''
+        sequence=rna_sequence.upper()
+        while len(sequence) >= 3:
+            codon = sequence[0:3]
+            sequence = sequence[3:]
+            amino = amino + genetic_code[codon]
+        return(amino)
     #need to set up a loop moving through the sequences three codons at a time
     #set up as a while loop so can set up an exit condition
         #compares the three codons to the dict
