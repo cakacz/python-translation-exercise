@@ -46,23 +46,41 @@ def get_all_translations(rna_sequence, genetic_code):
     If no amino acids can be translated from `rna_sequence`, an empty list is
     returned.
     """
-    sequences = []
     #slice off the first base and the first two bases to get alternate 
     #reading frames
-    two = rna_sequence[1:]
-    three = rna_sequence[2:]
-        one = find_start_codon(rna_sequence)
-    one = translate_sequence(rna_sequence, genetic_code)
-    
-    
-    
+    rf2 = rna_sequence[1:]
+    rf3 = rna_sequence[2:]
+    #run all three reading frames through function to get sequence after start codon
+    onetrimmed = find_start_codon(rna_sequence)
+    twotrimmed = find_start_codon(rf2)
+    threetrimmed = find_start_codon(rf3)
+    #check for empty lists, lists with values move through if statement
+    #empty lists move to else clause 
+    if onetrimmed:
+        seq = translate_sequence(onetrimmed, genetic_code)
+        seqone = [seq]
+    else:
+        seqone = []
+    if twotrimmed:
+        seq = translate_sequence(twotrimmed, genetic_code)
+        seqtwo =[seq]
+    else:
+        seqtwo = []
+    if threetrimmed:
+        seq = translate_sequence(threetrimmed, genetic_code)
+        seqthree = [seq]
+    else:
+        seqthree = []
+    seqone.extend(seqtwo)
+    seqone.extend(seqthree)
+    return(seqone)
 
 def find_start_codon(sequence):
     """Moves through a given sequence by threes until it finds 'AUG'.
     It will then slice off the start codon and return the sequence to be translated."""
     cond = 1
     none = []
-    while cond = 1:
+    while cond == 1:
         codon = sequence[0:3]
         sequence = sequence[3:]
         #if there are three or fewer bases (meaning it couldn't return a sequence
@@ -72,11 +90,11 @@ def find_start_codon(sequence):
             return(none)
         #when it finds a start codon it cuts the codon and returns the remaining sequence
         if codon =='AUG':
-            sequence = sequence[3:]
+            sequence = codon + sequence
             cond = 0
             return(sequence)
-         else:
-            cond = 1
+        else:
+            pass
 
 def get_reverse(sequence):
     """Reverse orientation of `sequence`.
