@@ -46,7 +46,37 @@ def get_all_translations(rna_sequence, genetic_code):
     If no amino acids can be translated from `rna_sequence`, an empty list is
     returned.
     """
-    pass
+    sequences = []
+    #slice off the first base and the first two bases to get alternate 
+    #reading frames
+    two = rna_sequence[1:]
+    three = rna_sequence[2:]
+        one = find_start_codon(rna_sequence)
+    one = translate_sequence(rna_sequence, genetic_code)
+    
+    
+    
+
+def find_start_codon(sequence):
+    """Moves through a given sequence by threes until it finds 'AUG'.
+    It will then slice off the start codon and return the sequence to be translated."""
+    cond = 1
+    none = []
+    while cond = 1:
+        codon = sequence[0:3]
+        sequence = sequence[3:]
+        #if there are three or fewer bases (meaning it couldn't return a sequence
+        #for translation, returns empty list none
+        if len(sequence) <= 3:
+            cond = 0
+            return(none)
+        #when it finds a start codon it cuts the codon and returns the remaining sequence
+        if codon =='AUG':
+            sequence = sequence[3:]
+            cond = 0
+            return(sequence)
+         else:
+            cond = 1
 
 def get_reverse(sequence):
     """Reverse orientation of `sequence`.
@@ -111,8 +141,12 @@ def get_longest_peptide(rna_sequence, genetic_code):
     If no amino acids can be translated from `rna_sequence` nor its reverse and
     complement, an empty list is returned.
     """
-    pass
-
+    main = get_all_translations(rna_sequence, genetic_code)
+    revcomp = reverse_and_complement(rna_sequence)
+    alt = get_all_translations(revcomp, genetic_code)
+    #maybe add list together?
+    #now just find a way to compare lengths of each part and pull out the longest string
+    #if all empty, just return the empty list
 
 if __name__ == '__main__':
     genetic_code = {'GUC': 'V', 'ACC': 'T', 'GUA': 'V', 'GUG': 'V', 'ACU': 'T', 'AAC': 'N', 'CCU': 'P', 'UGG': 'W', 'AGC': 'S', 'AUC': 'I', 'CAU': 'H', 'AAU': 'N', 'AGU': 'S', 'GUU': 'V', 'CAC': 'H', 'ACG': 'T', 'CCG': 'P', 'CCA': 'P', 'ACA': 'T', 'CCC': 'P', 'UGU': 'C', 'GGU': 'G', 'UCU': 'S', 'GCG': 'A', 'UGC': 'C', 'CAG': 'Q', 'GAU': 'D', 'UAU': 'Y', 'CGG': 'R', 'UCG': 'S', 'AGG': 'R', 'GGG': 'G', 'UCC': 'S', 'UCA': 'S', 'UAA': '*', 'GGA': 'G', 'UAC': 'Y', 'GAC': 'D', 'UAG': '*', 'AUA': 'I', 'GCA': 'A', 'CUU': 'L', 'GGC': 'G', 'AUG': 'M', 'CUG': 'L', 'GAG': 'E', 'CUC': 'L', 'AGA': 'R', 'CUA': 'L', 'GCC': 'A', 'AAA': 'K', 'AAG': 'K', 'CAA': 'Q', 'UUU': 'F', 'CGU': 'R', 'CGC': 'R', 'CGA': 'R', 'GCU': 'A', 'GAA': 'E', 'AUU': 'I', 'UUG': 'L', 'UUA': 'L', 'UGA': '*', 'UUC': 'F'}
