@@ -48,28 +48,48 @@ def get_all_translations(rna_sequence, genetic_code):
     """
     #slice off the first base and the first two bases to get alternate 
     #reading frames
+    #onetrimmed = []
+    #twotrimmed = []
+    #threetrimmed = []
+    seqone = []
+    rf1 = rna_sequence
     rf2 = rna_sequence[1:]
     rf3 = rna_sequence[2:]
     #run all three reading frames through function to get sequence after start codon
-    onetrimmed = find_start_codon(rna_sequence)
+    #while len(rf1) >= 3:
+    onetrimmed = find_start_codon(rf1)
+        #onetrimmed = onetrimmed.extend(rf1)
+    #while len(rf2) >= 3:
     twotrimmed = find_start_codon(rf2)
+        #onetrimmed = onetrimmed.extend(rf2)
+    #while len(rf3) >= 3: 
     threetrimmed = find_start_codon(rf3)
-    #check for empty lists, lists with values move through if statement
-    #empty lists move to else clause 
+        #onetrimmed = onetrimmed.extend(rf3) 
+   #check for empty lists, lists with values move through if statement
+   #empty lists move to else clause 
+    #for i in onetrimmed:
+        #new = [translate_sequence(onetrimmed, genetic_code)]
+#        print(seqone)
     if onetrimmed:
         seqone = [translate_sequence(onetrimmed, genetic_code)]
     else:
         seqone = []
+#        print(seqone)
     if twotrimmed:
         seqtwo = [translate_sequence(twotrimmed, genetic_code)]
+#        print(seqtwo)
     else:
         seqtwo = []
+#        print(seqtwo)
     if threetrimmed:
         seqthree = [translate_sequence(threetrimmed, genetic_code)]
+#        print(seqthree)
     else:
         seqthree = []
+#        print(seqthree)
     seqone.extend(seqtwo)
     seqone.extend(seqthree)
+#        seqone.extend(new)
     return(seqone)
 
 def find_start_codon(sequence):
@@ -80,16 +100,15 @@ def find_start_codon(sequence):
     while cond == 1:
         codon = sequence[0:3]
         sequence = sequence[3:]
-        #if there are three or fewer bases (meaning it couldn't return a sequence
-        #for translation, returns empty list none
-        if len(sequence) <= 3:
-            cond = 0
-            return(none)
         #when it finds a start codon it cuts the codon and returns the remaining sequence
         if codon =='AUG':
             sequence = codon + sequence
             cond = 0
             return(sequence)
+        #if the codon is not a start and there are fewer than three bases exits with empty list
+        elif len(sequence) < 3:
+            cond = 0
+            return(none)
         else:
             pass
 
@@ -156,9 +175,16 @@ def get_longest_peptide(rna_sequence, genetic_code):
     If no amino acids can be translated from `rna_sequence` nor its reverse and
     complement, an empty list is returned.
     """
+    none = ''
     main = get_all_translations(rna_sequence, genetic_code)
     revcomp = reverse_and_complement(rna_sequence)
     alt = get_all_translations(revcomp, genetic_code)
+    main.extend(alt)
+    #longest = max(main, key = len)
+    if main:
+        return max(main, key = len)
+    else:
+        return(none)
     #maybe add list together?
     #now just find a way to compare lengths of each part and pull out the longest string
     #if all empty, just return the empty list
