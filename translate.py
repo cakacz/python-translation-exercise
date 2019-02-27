@@ -57,18 +57,15 @@ def get_all_translations(rna_sequence, genetic_code):
     #check for empty lists, lists with values move through if statement
     #empty lists move to else clause 
     if onetrimmed:
-        seq = translate_sequence(onetrimmed, genetic_code)
-        seqone = [seq]
+        seqone = [translate_sequence(onetrimmed, genetic_code)]
     else:
         seqone = []
     if twotrimmed:
-        seq = translate_sequence(twotrimmed, genetic_code)
-        seqtwo =[seq]
+        seqtwo = [translate_sequence(twotrimmed, genetic_code)]
     else:
         seqtwo = []
     if threetrimmed:
-        seq = translate_sequence(threetrimmed, genetic_code)
-        seqthree = [seq]
+        seqthree = [translate_sequence(threetrimmed, genetic_code)]
     else:
         seqthree = []
     seqone.extend(seqtwo)
