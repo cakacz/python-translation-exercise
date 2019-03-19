@@ -194,12 +194,26 @@ if __name__ == '__main__':
             "AGU"
             "ACA"
             "GCG")
-    longest_peptide = get_longest_peptide(rna_sequence = rna_seq,
-            genetic_code = genetic_code)
-    assert isinstance(longest_peptide, str), "Oops: the longest peptide is {0}, not a string".format(longest_peptide)
-    message = "The longest peptide encoded by\n\t'{0}'\nis\n\t'{1}'\n".format(
-            rna_seq,
-            longest_peptide)
-    sys.stdout.write(message)
-    if longest_peptide == "MYWHATAPYTHQNISTA":
-        sys.stdout.write("Indeed.\n")
+#    longest_peptide = get_longest_peptide(rna_sequence = rna_seq,
+#            genetic_code = genetic_code)
+#    assert isinstance(longest_peptide, str), "Oops: the longest peptide is {0}, not a string".format(longest_peptide)
+#    message = "The longest peptide encoded by\n\t'{0}'\nis\n\t'{1}'\n".format(
+#            rna_seq,
+#            longest_peptide)
+#    sys.stdout.write(message)
+#    if longest_peptide == "MYWHATAPYTHQNISTA":
+#        sys.stdout.write("Indeed.\n")
+
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        sys.exit(sys.argv[0] + ": Expecting one command line argument -- the RNA sequence to translate")
+    n = str(sys.argv[1])
+    if n =='':
+        sys.exit(sys.argv[0] + ": Expecting an RNA sequence")
+
+    f = get_longest_peptide(n, genetic_code)
+
+    if f is None:
+        print(n)
+    else:
+        print(f)
